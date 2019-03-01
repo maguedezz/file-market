@@ -35,4 +35,4 @@ module.exports = __webpack_require__(/*! dropzone */"./node_modules/dropzone/dis
 
 /***/ })
 
-}]);
+},[[1,"/js/manifest"]]]);

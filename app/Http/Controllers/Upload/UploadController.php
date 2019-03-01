@@ -14,6 +14,18 @@ class UploadController extends Controller
     {
         $this->middleware(['auth']);
     }
+
+    public function destroy(File $file, Upload $upload)
+    {
+        $this->authorize('touch', $file);
+
+        $upload->delete();
+
+        return response()->json([
+            'message' => 'File has been deleted'
+        ]);
+    }
+    
     public function store(File $file, Request $request)
     {
         $this->authorize('touch', $file);
@@ -28,7 +40,7 @@ class UploadController extends Controller
             'test.png'
         );
         return response()->json([
-            'id' => 1
+            'id' => $upload->id
         ]);
     }
 
