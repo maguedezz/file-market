@@ -14,17 +14,6 @@ class UploadController extends Controller
     {
         $this->middleware(['auth']);
     }
-
-    public function destroy(File $file, Upload $upload)
-    {
-        $this->authorize('touch', $file);
-
-        $upload->delete();
-
-        return response()->json([
-            'message' => 'File has been deleted'
-        ]);
-    }
     
     public function store(File $file, Request $request)
     {
@@ -44,6 +33,18 @@ class UploadController extends Controller
         ]);
     }
 
+     public function destroy(File $file, Upload $upload)
+    {
+        $this->authorize('touch', $file);
+        $this->authorize('touch', $upload);
+        // auth upload
+        // prevent all files from being deleted when we are editing a file
+        $upload->delete();
+        return response()->json([
+            'message' => 'File has been deleted'
+        ]);
+    }
+    
     protected function storeUpload(File $file, UploadedFile $uploadedFile)
     {
         $upload = new Upload;

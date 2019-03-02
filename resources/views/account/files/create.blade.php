@@ -6,7 +6,7 @@
         
         @csrf
 
-        <drag-and-drop :url="'{{ route("upload.store", $file) }}'"></drag-and-drop>
+        <drag-and-drop :url="'{{ route("upload.store", $file) }}'" :uploads="{{ $file->uploads }}"></drag-and-drop>
         
         <div class="field">
             <label for="title" class="label">Title</label>

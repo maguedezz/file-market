@@ -1,6 +1,6 @@
 <template>
   <div class="field">
-    <vue-dropzone @vdropzone-success="setFileID" @vdropzone-removed-file="deleteFile" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+    <vue-dropzone  ref="dropzoneElement" @vdropzone-mounted="addFiles" @vdropzone-success="setFileID" @vdropzone-removed-file="deleteFile" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
   </div>
 </template>
 
@@ -15,6 +15,10 @@
         url: {
           required: true,
           type: String
+        },
+        uploads: {
+          required: true,
+          type: Array
         }
       },
      components: {
@@ -32,16 +36,34 @@
           id: null
         }
       },
+
       methods: {
+
+        addFiles() {
+              _.forEach(this.uploads, (upload) => {
+                console.log(upload)
+                this.$refs.dropzoneElement.manuallyAddFile({
+                name: upload.filename,
+                size: upload.size,
+                type: "image/png"
+              })
+              })
+        },
         setFileID(file, response) {
 
           this.id = response.id
 
         },
 
-        deleteFile (event) {
+        deleteFile (file) {
           axios.delete(`${this.url}/${this.id}`).then((res) => {
-            console.log(res)
+           console.log(res)
+          }).catch((err) => {
+            this.$emit('vdropzone-file-added', {
+              name: file.name,
+              size: file.size,
+              id: this.id
+            })
           })
         }
       },
