@@ -2,11 +2,11 @@
 
 @section ('account.content')
     <h1 class="title">Sell a file</h1>
-    <form action="{{ route('upload.store', $file) }}" method="post" class="form dropzone" enctype="multipart/form-data">
+    <form action="{{ route('account.files.store', $file) }}" method="post" class="form dropzone" enctype="multipart/form-data">
         
         @csrf
-
-        <drag-and-drop :url="'{{ route("upload.store", $file) }}'" :uploads="{{ $file->uploads }}"></drag-and-drop>
+        <input type="hidden" name="uploads" value="{{ $file->id }}">
+        <drag-and-drop :url="'{{ route("upload.store", $file) }}'" :uploads="{{ $file->uploads()->get() }}"></drag-and-drop>
         
         <div class="field">
             <label for="title" class="label">Title</label>

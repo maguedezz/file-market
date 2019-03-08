@@ -9,7 +9,9 @@
     <form action="{{ route('account.files.update', $file) }}" method="post" class="form">
         @csrf
         @method('PATCH')
+        
         <input type="hidden" value="0" name="live">
+
         <div class="field">
             <p class="control">
                 <label for="live" class="checkbox">

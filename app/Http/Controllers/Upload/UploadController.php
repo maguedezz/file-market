@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Upload;
-use App\File;
+use App\{File, Upload};
 use App\Http\Controllers\Controller;
-use App\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Storage;
@@ -26,7 +25,7 @@ class UploadController extends Controller
         Storage::disk('local')->putFileAs(
             'files/' . $file->identifier,
             $uploadedFile,
-            'test.png'
+            $this->generateFilenameWithExtension($uploadedFile)
         );
         return response()->json([
             'id' => $upload->id
@@ -63,5 +62,13 @@ class UploadController extends Controller
     protected function generateFilename(UploadedFile $uploadedFile)
     {
         return $uploadedFile->getClientOriginalName();
+    }
+    protected function getFileExtension(UploadedFile $uploadedFile)
+    {
+        return $uploadedFile->getClientOriginalExtension();
+    }
+    protected function generateFilenameWithExtension(UploadedFile $uploadedFile)
+    {
+        return $this->generateFilename($uploadedFile) . '.' . $this->getFileExtension($uploadedFile);
     }
 }
