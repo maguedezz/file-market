@@ -16,7 +16,6 @@ class StoreFileRequest extends FormRequest
     protected function validationData()
     {
         $this->merge(['uploads'=> $this->file->id]);
-        dd($this->all);
         return $this->all();
     }
 
@@ -34,7 +33,7 @@ class StoreFileRequest extends FormRequest
                 Rule::exists('uploads', 'file_id')->where(function ($query) {
                     $query->whereNull('deleted_at');
                 })
-             ] 
+            ]
         ];
     }
 

@@ -7,7 +7,10 @@
         @csrf
         <input type="hidden" name="uploads" value="{{ $file->id }}">
         <drag-and-drop :url="'{{ route("upload.store", $file) }}'" :uploads="{{ $file->uploads()->get() }}"></drag-and-drop>
-        
+            @if($errors->has('uploads'))
+                <p class="help is-danger">{{ $errors->first('uploads') }}</p>
+            @endif
+
         <div class="field">
             <label for="title" class="label">Title</label>
             <p class="control">

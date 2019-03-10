@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Upload;
-use App\{File, Upload};
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Upload\StoreUploadRequest;
+use App\{File, Upload};
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Storage;
@@ -14,12 +15,11 @@ class UploadController extends Controller
         $this->middleware(['auth']);
     }
     
-    public function store(File $file, Request $request)
+    public function store(File $file, StoreUploadRequest $request)
     {
         $this->authorize('touch', $file);
 
         $uploadedFile = $request->file('file');
-
         $upload = $this->storeUpload($file, $uploadedFile);
 
         Storage::disk('local')->putFileAs(
