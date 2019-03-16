@@ -39,9 +39,12 @@ class UploadController extends Controller
         // auth upload
         // prevent all files from being deleted when we are editing a file
         $upload->delete();
-        return response()->json([
+        if ($file->uploads->count() == 1){
+            return response()->json([
             'message' => 'File has been deleted'
         ]);
+        }
+       
     }
     
     protected function storeUpload(File $file, UploadedFile $uploadedFile)

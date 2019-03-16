@@ -12,6 +12,12 @@
         
         <input type="hidden" value="0" name="live">
 
+        <input type="hidden" name="uploads" value="{{ $file->id }}">
+        <drag-and-drop :url="'{{ route("upload.store", $file) }}'" :uploads="{{ $file->uploads()->get() }}"></drag-and-drop>
+            @if($errors->has('uploads'))
+                <p class="help is-danger">{{ $errors->first('uploads') }}</p>
+            @endif
+
         <div class="field">
             <p class="control">
                 <label for="live" class="checkbox">
@@ -64,4 +70,8 @@
              <p>Your file changes may be subject to review.</p>
          </div>
     </form>
+@endsection
+
+@section('scripts')
+    @include('files.partials._file_upload_js')
 @endsection

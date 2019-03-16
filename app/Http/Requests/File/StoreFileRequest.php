@@ -21,7 +21,7 @@ class StoreFileRequest extends FormRequest
 
     public function rules() // rules of storing a file
     {
-        $this->replace(['uploads'=> $this->file->id]);
+        //$this->replace(['uploads'=> $this->file->id]);
 
         return [
             'title' => 'required|max:255',

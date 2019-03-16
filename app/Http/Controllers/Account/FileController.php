@@ -45,7 +45,7 @@ class FileController extends Controller
         $file->save();
         // Flash msg
         return redirect()->route('account.files.index')
-        ->withSuccess('Thanks, submitted for review.'); // Laravel knows that u are accessing session('success') that u wrote in flash.blade
+             ->withSuccess('Thanks, submitted for review.'); // Laravel knows that u are accessing session('success') that u wrote in flash.blade
     }
 
     public function update(File $file,UpdateFileRequest $request)
