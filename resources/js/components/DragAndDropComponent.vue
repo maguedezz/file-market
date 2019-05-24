@@ -10,20 +10,28 @@
   import vue2Dropzone from 'vue2-dropzone'
   import 'vue2-dropzone/dist/vue2Dropzone.min.css'
   import axios from 'axios'
-
+  import MultipleFileUploader from '@updivision/vue2-multi-uploader'
   export default {
     props: {
       url: {
         required: true,
-        type: String
+        type: String,
+        maxfilesexceeded: function(file) {
+    this.removeAllFiles();
+    this.addFile(file);
+  },
+      uploadMultiple: true,
+       maxFiles: 3
       },
+
       uploads: {
         required: true,
         type: Array
       }
     },
    components: {
-      vueDropzone: vue2Dropzone
+      vueDropzone: vue2Dropzone,
+        MultipleFileUploader
     },
     data () {
       return {

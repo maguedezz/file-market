@@ -18,6 +18,11 @@
                 <a href="{{ route('account') }}" class="nav-item">
                     Your Account
                 </a>
+                @if(auth()->user()->hasRole('admin'))
+                <a href="{{ route('admin.index') }}" class="nav-item">
+                    Admin
+                </a>
+                @endif
             @else
                 <a href="{{ route('login') }}" class="nav-item">
                     Sign In
