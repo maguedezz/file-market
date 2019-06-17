@@ -2,7 +2,7 @@
     <p class="menu-label">Manages Files</p>
     <ul class="menu-list">
         <li>
-            <a href="#">Approve new files</a>
+            <a href="{{ route('admin.files.new.index') }}">Approve new files</a>
         </li>
 
        <li>
