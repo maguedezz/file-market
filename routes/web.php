@@ -23,7 +23,7 @@ Route::group(['prefix' => '/account', 'middleware' => ['auth'], 'namespace' => '
        Route::group(['prefix' => '/new'], function(){  
            Route::get('/','FileNewController@index')->name('admin.files.new.index');
            Route::patch('/{file}','FileNewController@update')->name('admin.files.new.update');
-
+           Route::delete('/{file}','FileNewController@destroy')->name('admin.files.new.destroy');
     });
   });
 
