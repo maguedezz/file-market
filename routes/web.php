@@ -28,9 +28,12 @@ Route::group(['prefix' => '/account', 'middleware' => ['auth'], 'namespace' => '
        Route::group(['prefix' => '/updated'], function(){  
            Route::get('/','FileUpdatedController@index')->name('admin.files.updated.index');
            Route::patch('/{file}','FileUpdatedController@update')->name('admin.files.updated.update');
+           Route::delete('/{file}','FileUpdatedController@destroy')->name('admin.files.updated.destroy');
     });
   });
 
 });
 Route::post('/{file}/upload', 'Upload\UploadController@store')->name('upload.store');
 Route::delete('/{file}/upload/{upload}', 'Upload\UploadController@destroy')->name('upload.destroy');
+
+Route::get('/{file}', 'Files\FileController@show')->name('files.show');
