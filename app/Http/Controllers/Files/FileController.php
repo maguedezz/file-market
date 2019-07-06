@@ -15,7 +15,6 @@ class FileController extends Controller
         }
 
         $uploads = $file->uploads()->approved()->get();
-
         return view('files.show', [
             'file'    => $file,
             'uploads' => $uploads

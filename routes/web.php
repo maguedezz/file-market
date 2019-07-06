@@ -18,6 +18,7 @@ Route::group(['prefix' => '/account', 'middleware' => ['auth'], 'namespace' => '
 });
     Route::group(['prefix' => '/admin', 'namespace' =>  'Admin', 'middleware' => ['auth','admin']], function() {
        Route::get('/','AdminController@index')->name('admin.index');
+       Route::get('/{file}','FileController@show')->name('admin.files.show');
 
      Route::group(['prefix' => '/files'], function(){  
        Route::group(['prefix' => '/new'], function(){  
@@ -31,9 +32,14 @@ Route::group(['prefix' => '/account', 'middleware' => ['auth'], 'namespace' => '
            Route::delete('/{file}','FileUpdatedController@destroy')->name('admin.files.updated.destroy');
     });
   });
-
 });
+
+Route::group(['prefix' => '/{file}/checkout', 'namespace' => 'Checkout'], function () {
+    Route::post('/free', 'CheckoutController@free')->name('checkout.free');
+});
+
 Route::post('/{file}/upload', 'Upload\UploadController@store')->name('upload.store');
 Route::delete('/{file}/upload/{upload}', 'Upload\UploadController@destroy')->name('upload.destroy');
 
 Route::get('/{file}', 'Files\FileController@show')->name('files.show');
+Route::get('/{file}/{sale}/download', 'Files\FileDownloadController@show')->name('files.download');

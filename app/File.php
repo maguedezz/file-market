@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Sale;
 use App\Traits\HasApprovals;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +39,16 @@ class File extends Model
     public function getRouteKeyName()
     {
         return 'identifier'; // indicates the column identifier
+    }
+
+    public function getUploadList()
+    {
+        return $this->uploads()->approved()->get()->pluck('path')->toArray(); // grab all of the uploads and pluck 
+    }
+
+    public function matchesSale(Sale $sale)
+    {
+        return $this->sales->contains($sale);
     }
 
     public function visible()
@@ -123,16 +134,28 @@ class File extends Model
         // array_only($this->toArray(), self::approval_properties ==> current db , $properties ==> request
     }
 
+    public function calculateCommission()
+    {
+        return (config('filemarket.sales.commission') / 100) * $this->price;
+    }
+
     public function uploads() // file has many uploads
     {
         return $this->hasMany(Upload::class);
     }
+
     public function approvals()
     {
         return $this->hasMany(FileApproval::class);
     }
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
     }
 }
