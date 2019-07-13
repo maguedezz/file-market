@@ -25,8 +25,13 @@ class FileDownloadController extends Controller
         if (!$file->matchesSale($sale)) {
             return abort(403);
         }
+   
 
-        $this->createZipForFileInPath($file, $this->generateTemporaryPath($file));
+        $this->createZipForFileInPath($file, $path = $this->generateTemporaryPath($file));
+
+        return response()
+            ->download($path)
+            ->deleteFileAfterSend(true);
     }
      protected function createZipForFileInPath(File $file, $path)
      {

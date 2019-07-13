@@ -51,7 +51,7 @@ class UploadController extends Controller
         $upload = new Upload;
 
         $upload->fill([
-            'filename' => $this->generateFilename($uploadedFile),
+            'filename' => $this->generateFilenameWithExtension($uploadedFile),
             'size' => $uploadedFile->getSize(),            
         ]);
 
@@ -61,16 +61,9 @@ class UploadController extends Controller
         return $upload;
     }
 
-    protected function generateFilename(UploadedFile $uploadedFile)
-    {
-        return $uploadedFile->getClientOriginalName();
-    }
-    protected function getFileExtension(UploadedFile $uploadedFile)
-    {
-        return $uploadedFile->getClientOriginalExtension();
-    }
+
     protected function generateFilenameWithExtension(UploadedFile $uploadedFile)
     {
-        return $this->generateFilename($uploadedFile) . '.' . $this->getFileExtension($uploadedFile);
+        return $uploadedFile->hashName();
     }
 }

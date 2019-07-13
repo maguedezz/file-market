@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class UploadTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
         $this->upload = new Upload;

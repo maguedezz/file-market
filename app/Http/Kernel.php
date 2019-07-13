@@ -61,6 +61,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\AbortIfNotAdmin::class,
+        'needs.marketplace' => \App\Http\Middleware\RedirectIfMarketplaceNotConnected::class,
+        'has.marketplace' => \App\Http\Middleware\RedirectIfMarketplaceConnected::class,
     ];
 
     /**

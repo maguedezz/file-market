@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
         $this->user = new User;
